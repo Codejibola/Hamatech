@@ -16,7 +16,7 @@ const Sidebar = () => {
       </div>
       <nav className="flex-1 p-4 space-y-4">
         <Link
-          to="/"
+          to="/dashboard"
           className="flex items-center space-x-3 p-2 rounded hover:bg-gray-800"
         >
           <Home size={20} /> <span>Dashboard</span>
