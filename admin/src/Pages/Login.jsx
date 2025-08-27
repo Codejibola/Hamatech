@@ -8,19 +8,25 @@ const Login = () => {
   const [pwd, setPwd] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (user.trim() === "" || pwd.trim() === "") {
-      alert("Please enter valid credentials!");
-      return;
-    }
+  
+  const res = await fetch("http://localhost:3500/api/admin/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username: user , password: pwd }),
+  });
 
-    console.log("Username:", user);
-    console.log("Password:", pwd);
-    navigate("/dashboard");
-    setUser("");
-    setPwd("");
+    const data = await res.json();
+    if (res.status === 200) {
+      alert(data.message);
+      navigate("/dashboard");
+    } else {
+      alert("Invalid credentials"),
+      setUser("");
+      setPwd("");
+    }
   };
 
   return (

@@ -1,9 +1,18 @@
 // My MongoDb connection string:mongodb+srv://Jibola:#1Test@digitalautorepairs.euhxps8.mongodb.net/?retryWrites=true&w=majority&appName=DigitalAutoRepairs
 
 
+// This web server serves static files and handles routing for a web application and also serves api routes
+import cors from 'cors';
+import getServices from './Routes/Services.js';
+import getShop from './Routes/Shop.js';
+import express from 'express';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import authRouter from './Routes/Admin/Auth.js';
 
-const express = require('express');
-const path = require('path');
+// Recreating __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 class WebServer {
     #foldername;
@@ -15,6 +24,7 @@ class WebServer {
         this.#routes = routes; // Array of { route, file }
         this.#port = process.env.PORT || port;
         this.app = express();
+        this.app.use(cors());
     }
 
     start() {
@@ -41,6 +51,14 @@ class WebServer {
         });
     }
 
+    addGet(path, handler) {
+        this.app.get(path, handler);
+    }
+
+    addPost(path, handler) {
+        this.app.post(path, handler);
+    }
+
     listen() {
         this.app.listen(this.#port, () => {
             console.log(`Server running on port ${this.#port}`);
@@ -48,3 +66,20 @@ class WebServer {
     }
 }
 
+const HamatechServer = new WebServer(
+    3500,                // port
+    "public",            // folder where your static files live
+    [                    // routes (optional, since you're also using addGet)
+        { route: "/", file: "index.html" },
+        { route: "/about", file: "about.html" }
+    ]
+);
+
+// Add API routes
+HamatechServer.addGet("/Services", getServices);
+HamatechServer.addGet("/Shop", getShop);
+
+HamatechServer.app.use(express.json());
+HamatechServer.app.use('/api/admin', authRouter);
+HamatechServer.start();
+HamatechServer.listen();
