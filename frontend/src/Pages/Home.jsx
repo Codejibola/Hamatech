@@ -65,9 +65,10 @@ const Home = () => {
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
           {[
-            { title: "Web Development", desc: "Custom websites tailored to your brand and business needs." },
-            { title: "Tech Consultancy", desc: "Expert advice to scale your business with technology." },
-            { title: "Product Sales", desc: "Quality gadgets and accessories at affordable prices." },
+            
+             { title: "Device Sales", desc: "Get the latest digital devices and gadgets at competitive prices." },
+             { title: "Repairs & Maintenance", desc: "Fast and reliable repair services for phones, laptops, and other devices." },
+             { title: "Spare Parts", desc: "High-quality replacement parts for all kinds of digital devices." },
           ].map((service, idx) => (
             <motion.div
               key={idx}
@@ -102,10 +103,14 @@ const Home = () => {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-gray-700 text-lg leading-relaxed"
         >
-          At HamaTech, we don’t just provide services — we build partnerships.
-          Our mission is to empower our clients with the right tools and
-          solutions to succeed in a tech-driven world. Whether you’re a student,
-          a startup, or an enterprise, we’ve got you covered.
+          <p className="text-lg text-black-350 leading-relaxed">
+  At <span className="font-semibold text-black-400">HamaTech</span>, we don’t just fix and sell devices — we keep your digital world alive.  
+  Our mission is to make technology simple, reliable, and within reach for everyone.  
+  Whether you’re a student needing affordable gadgets, a professional looking for quick repairs,  
+  or a business searching for the right parts and accessories — <span className="font-semibold">we’ve got you covered</span>.  
+  With HamaTech, your devices aren’t just tools — they’re a lifestyle we help you power every day.  
+</p>
+
         </motion.p>
       </div>
 

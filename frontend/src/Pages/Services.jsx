@@ -4,23 +4,27 @@ import Navbar from "../Components/Navbar.jsx";
 
 const Services = () => {
   const services = [
-    {
-      title: "Web Development",
-      desc: "We design and develop responsive, scalable websites tailored to your goals.",
-    },
-    {
-      title: "Tech Consultancy",
-      desc: "Guidance on technology adoption, digital strategies, and innovation.",
-    },
-    {
-      title: "Product Support",
-      desc: "Professional support to ensure your devices and software run smoothly.",
-    },
-    {
-      title: "Training & Workshops",
-      desc: "Equipping students and businesses with practical tech skills.",
-    },
-  ];
+  { 
+    title: "Device Sales", 
+    desc: "Get the latest laptops, smartphones, and accessories at unbeatable prices." 
+  },
+  { 
+    title: "Repairs & Maintenance", 
+    desc: "Fast and reliable repairs to keep your devices running like new." 
+  },
+  { 
+    title: "Parts & Accessories", 
+    desc: "High-quality replacement parts and must-have accessories for every device." 
+  },
+  { 
+    title: "Tech Upgrades", 
+    desc: "Boost your devices with upgrades that give you better speed, storage, and performance." 
+  },
+  { 
+    title: "Student & Business Support", 
+    desc: "Affordable tech solutions tailored for students, startups, and enterprises." 
+  }
+];
 
   return (
     <div className="min-h-screen bg-white text-black">
