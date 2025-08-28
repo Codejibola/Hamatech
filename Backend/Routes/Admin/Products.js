@@ -8,11 +8,11 @@ const router = express.Router();
 // multer storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/"); // images will be stored in /uploads folder
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
     const uniqueName = Date.now() + path.extname(file.originalname);
-    cb(null, uniqueName); // e.g., 16932434234.png
+    cb(null, uniqueName);
   },
 });
 
