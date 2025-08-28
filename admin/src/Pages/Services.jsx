@@ -4,15 +4,14 @@ import { motion } from "framer-motion";
 function Services() {
   return (
     <motion.div
-      className="p-6"
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
+      className="min-h-screen bg-white text-black p-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <h1 className="text-2xl font-bold mb-4">Services</h1>
-      <p className="text-gray-600">
-        Manage repair services here — create, update, or delete services offered
-        by HamaTech.
+      <h1 className="text-4xl font-extrabold mb-6">Services</h1>
+      <p className="text-lg text-gray-800">
+        Manage and update the services you provide to customers.
       </p>
     </motion.div>
   );

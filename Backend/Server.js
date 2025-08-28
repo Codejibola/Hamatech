@@ -3,13 +3,14 @@
 
 // This web server serves static files and handles routing for a web application and also serves api routes
 import cors from 'cors';
-import getServices from './Routes/Services.js';
-import getShop from './Routes/Shop.js';
+import getServices from './APIs/servicesAPI.js';
+import getShop from './APIs/shopAPI.js';
+// import getMessages from './APIs/messagesAPI.js';
 import express from 'express';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import authRouter from './Routes/Admin/Auth.js';
-
+import productRouter from './Routes/Admin/Products.js';
 // Recreating __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -75,11 +76,18 @@ const HamatechServer = new WebServer(
     ]
 );
 
-// Add API routes
-HamatechServer.addGet("/Services", getServices);
-HamatechServer.addGet("/Shop", getShop);
+// API routes
+HamatechServer.addGet("/services", getServices);
+HamatechServer.addGet("/shop", getShop);
+// HamatechServer.addGet("/messages", getMessages);
 
+// Middleware to parse JSON bodies
 HamatechServer.app.use(express.json());
+HamatechServer.app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 HamatechServer.app.use('/api/admin', authRouter);
+HamatechServer.app.use('/api/admin', productRouter);
 HamatechServer.start();
 HamatechServer.listen();
+
+
+

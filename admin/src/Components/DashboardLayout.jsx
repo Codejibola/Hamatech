@@ -17,11 +17,7 @@ const DashboardLayout = () => {
             <h1 className="text-2xl font-extrabold">HamaTech Admin</h1>
 
             <div className="flex items-center gap-3">
-              <input
-                type="text"
-                placeholder="Search…"
-                className="hidden md:block bg-white text-black placeholder-gray-500 border border-black rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
-              />
+              
               <img
                 src="https://i.pravatar.cc/48"
                 alt="Admin"

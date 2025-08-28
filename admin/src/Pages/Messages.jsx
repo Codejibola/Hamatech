@@ -4,14 +4,14 @@ import { motion } from "framer-motion";
 function Messages() {
   return (
     <motion.div
-      className="p-6"
-      initial={{ opacity: 0, y: 30 }}
+      className="min-h-screen bg-white text-black p-8"
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <h1 className="text-2xl font-bold mb-4">Messages</h1>
-      <p className="text-gray-600">
-        View and respond to messages sent from the contact form on the website.
+      <h1 className="text-4xl font-extrabold mb-6">Messages</h1>
+      <p className="text-lg text-gray-800">
+        View and respond to customer inquiries and messages.
       </p>
     </motion.div>
   );
