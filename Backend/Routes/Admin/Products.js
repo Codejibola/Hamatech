@@ -5,7 +5,7 @@ import db from "../../Config/db.js";
 
 const router = express.Router();
 
-// 1️⃣ Configure multer storage
+// multer storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/"); // images will be stored in /uploads folder
@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// 2️⃣ POST route for adding product
+// route for adding product
 router.post("/add", upload.single("image"), (req, res) => {
   const { name, price, description } = req.body;
   const image = req.file ? req.file.filename : null;
