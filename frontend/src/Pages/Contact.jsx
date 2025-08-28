@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import Navbar from "../Components/Navbar";
 export default function Contact() {
   const [message, setMessage] = useState("");
 
@@ -11,6 +11,8 @@ export default function Contact() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="min-h-screen bg-white text-black flex items-center justify-center p-10">
       <div className="w-full max-w-lg bg-gray-100 p-8 rounded-xl shadow">
         <h2 className="text-2xl font-bold mb-6 text-center">Send Us a Message</h2>
@@ -31,5 +33,6 @@ export default function Contact() {
         </button>
       </div>
     </div>
+    </>
   );
 }
