@@ -31,7 +31,7 @@ function Products() {
     try {
       const res = await fetch("http://localhost:3500/api/admin/add", {
         method: "POST",
-        body: data, // no Content-Type header, fetch sets it automatically
+        body: data, 
       });
 
       const result = await res.json();

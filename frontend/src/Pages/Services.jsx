@@ -1,30 +1,39 @@
 //eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar.jsx";
 
 const Services = () => {
-  const services = [
-  { 
-    title: "Device Sales", 
-    desc: "Get the latest laptops, smartphones, and accessories at unbeatable prices." 
-  },
-  { 
-    title: "Repairs & Maintenance", 
-    desc: "Fast and reliable repairs to keep your devices running like new." 
-  },
-  { 
-    title: "Parts & Accessories", 
-    desc: "High-quality replacement parts and must-have accessories for every device." 
-  },
-  { 
-    title: "Tech Upgrades", 
-    desc: "Boost your devices with upgrades that give you better speed, storage, and performance." 
-  },
-  { 
-    title: "Student & Business Support", 
-    desc: "Affordable tech solutions tailored for students, startups, and enterprises." 
-  }
-];
+    const [services, setServices] = useState([])
+   useEffect(() => {
+    fetch("http://localhost:3500/services")
+      .then((res) => res.json())
+      .then((data) => setServices(data))
+      .catch((err) => console.error(err));
+  }, []);
+
+//   const services = [
+//   { 
+//     title: "Device Sales", 
+//     desc: "Get the latest laptops, smartphones, and accessories at unbeatable prices." 
+//   },
+//   { 
+//     title: "Repairs & Maintenance", 
+//     desc: "Fast and reliable repairs to keep your devices running like new." 
+//   },
+//   { 
+//     title: "Parts & Accessories", 
+//     desc: "High-quality replacement parts and must-have accessories for every device." 
+//   },
+//   { 
+//     title: "Tech Upgrades", 
+//     desc: "Boost your devices with upgrades that give you better speed, storage, and performance." 
+//   },
+//   { 
+//     title: "Student & Business Support", 
+//     desc: "Affordable tech solutions tailored for students, startups, and enterprises." 
+//   }
+// ];
 
   return (
     <div className="min-h-screen bg-white text-black">
@@ -62,13 +71,13 @@ const Services = () => {
             transition={{ delay: idx * 0.2, duration: 0.5 }}
             className="bg-white border border-gray-300 rounded-2xl p-6 shadow hover:shadow-lg transition"
           >
-            <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-            <p className="text-gray-600">{service.desc}</p>
+            <h3 className="text-xl font-semibold mb-2">{service.Title}</h3>
+            <p className="text-gray-600">{service.Description}</p>
           </motion.div>
         ))}
       </div>
 
-      {/* CTA Section */}
+            {/* CTA Section */}
       <div className="px-6 py-16 bg-black text-white text-center">
         <motion.h2
           initial={{ opacity: 0, y: -30 }}
@@ -89,11 +98,23 @@ const Services = () => {
           We’re always ready to work with you on unique projects. Contact us
           today and let’s build something amazing together.
         </motion.p>
+
+        {/* Contact Us (email) */}
         <a
           href="mailto:hamatech@example.com"
-          className="px-6 py-3 rounded-2xl bg-white text-black font-semibold shadow-md hover:bg-gray-200 transition"
+          className="px-6 py-3 rounded-2xl bg-white text-black font-semibold shadow-md hover:bg-gray-200 transition mr-4"
         >
           Contact Us
+        </a>
+
+        {/* Request Service (WhatsApp) */}
+        <a
+          href="https://wa.me/2348063564014?text=Hello%20HamaTech,%20I%20would%20like%20to%20request%20a%20service."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-6 py-3 rounded-2xl bg-green-500 text-white font-semibold shadow-md hover:bg-green-600 transition"
+        >
+          Request Service
         </a>
       </div>
     </div>

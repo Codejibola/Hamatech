@@ -17,7 +17,7 @@ function Dashboard() {
         and review customer <span className="font-semibold">messages</span>.
       </p>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2">
         <motion.div
           className="p-6 bg-white text-black rounded-xl shadow-lg"
           whileHover={{ scale: 1.05 }}
@@ -34,13 +34,7 @@ function Dashboard() {
           <p>Manage and update the services you provide.</p>
         </motion.div>
 
-        <motion.div
-          className="p-6 bg-white text-black rounded-xl shadow-lg"
-          whileHover={{ scale: 1.05 }}
-        >
-          <h2 className="text-xl font-bold mb-2">Messages</h2>
-          <p>Review messages and inquiries from customers.</p>
-        </motion.div>
+    
       </div>
     </motion.div>
   );

@@ -5,12 +5,13 @@
 import cors from 'cors';
 import getServices from './APIs/servicesAPI.js';
 import getShop from './APIs/shopAPI.js';
-// import getMessages from './APIs/messagesAPI.js';
 import express from 'express';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import authRouter from './Routes/Admin/Auth.js';
 import productRouter from './Routes/Admin/Products.js';
+import servicesRouter from './Routes/Admin/Services.js';
+
 // Recreating __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,17 +23,22 @@ class WebServer {
 
     constructor(port, foldername, routes) {
         this.#foldername = foldername;
-        this.#routes = routes; // Array of { route, file }
+        this.#routes = routes;
         this.#port = process.env.PORT || port;
         this.app = express();
+
+        // Middleware must come BEFORE routers
         this.app.use(cors());
+        this.app.use(express.json()); // <-- important
+        this.app.use(express.urlencoded({ extended: true })); // optional, for form posts
+        this.app.use("/uploads", express.static(path.join(__dirname, "uploads")));
     }
 
     start() {
         // Serve static assets (CSS, JS, images)
         this.app.use(express.static(path.join(__dirname, this.#foldername)));
 
-        // Loop through each route
+        // Loop through each route for static HTML pages
         this.#routes.forEach(({ route, file }) => {
             this.app.get(route, (req, res) => {
                 res.sendFile(path.join(__dirname, this.#foldername, file), (err) => {
@@ -60,6 +66,10 @@ class WebServer {
         this.app.post(path, handler);
     }
 
+    use(path, router) {
+        this.app.use(path, router); // to mount routers like servicesRouter
+    }
+
     listen() {
         this.app.listen(this.#port, () => {
             console.log(`Server running on port ${this.#port}`);
@@ -67,27 +77,24 @@ class WebServer {
     }
 }
 
+// Initialize server
 const HamatechServer = new WebServer(
-    3500,                // port
-    "public",            // folder where your static files live
-    [                    // routes (optional, since you're also using addGet)
+    3500,
+    "public",
+    [
         { route: "/", file: "index.html" },
         { route: "/about", file: "about.html" }
     ]
 );
 
-// API routes
+// Static & API routes
+HamatechServer.use('/api/admin', authRouter);
+HamatechServer.use('/api/admin', productRouter);
+HamatechServer.use('/api/admin', servicesRouter);
+
+// Any additional API routes
 HamatechServer.addGet("/services", getServices);
 HamatechServer.addGet("/shop", getShop);
-// HamatechServer.addGet("/messages", getMessages);
 
-// Middleware to parse JSON bodies
-HamatechServer.app.use(express.json());
-HamatechServer.app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-HamatechServer.app.use('/api/admin', authRouter);
-HamatechServer.app.use('/api/admin', productRouter);
 HamatechServer.start();
 HamatechServer.listen();
-
-
-

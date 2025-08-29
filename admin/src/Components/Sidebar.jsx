@@ -33,12 +33,7 @@ const Sidebar = () => {
         >
           <Wrench size={20} /> <span>Services</span>
         </Link>
-        <Link
-          to="/messages"
-          className="flex items-center space-x-3 p-2 rounded hover:bg-gray-800"
-        >
-          <MessageSquare size={20} /> <span>Messages</span>
-        </Link>
+        
       </nav>
     </motion.aside>
   );
