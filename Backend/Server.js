@@ -79,7 +79,7 @@ class WebServer {
 
 // Initialize server
 const HamatechServer = new WebServer(
-    process.env.PORT || 3000,
+    3000,
     "public",
     [
         { route: "/", file: "index.html" },
