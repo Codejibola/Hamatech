@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "bcrypt": "^6.0.0",
-    "lucide-react": "^0.542.0",
-    "multer": "^2.0.2",
-    "mysql2": "^3.14.3"
-  }
-}
