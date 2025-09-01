@@ -13,5 +13,5 @@ async function createAdmin(username,password){
     })
 }
 
-createAdmin("superadmin", "#1Kingcube");
+
 createAdmin("Hamatech", "superadmin1")

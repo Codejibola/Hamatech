@@ -7,7 +7,7 @@
  "scripts": {
   "start": "node Server.js",
   "dev": "nodemon Server.js",
-  "create-admin": "node ./Routes/Registration/Admins.js",
+  "create-admin": "node ./Routes/Registration/AdminsTable.js",
   "test": "echo \"Error: no test specified\" && exit 1"
 }
 ,
