@@ -7,7 +7,7 @@ const Shop = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3500/Shop")
+    fetch("https://hamatech.onrender.com/Shop")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error(err));
@@ -51,7 +51,7 @@ const Shop = () => {
               className="bg-white border border-gray-300 rounded-2xl p-6 shadow hover:shadow-lg transition flex flex-col"
             >
               <img
-                src={`http://localhost:3500/uploads/${product.ProductImage}`}
+                src={`https://hamatech.onrender.com/uploads/${product.ProductImage}`}
                 alt={product.ProductName}
                 className="h-48 w-full object-cover rounded-xl mb-4"
               />
