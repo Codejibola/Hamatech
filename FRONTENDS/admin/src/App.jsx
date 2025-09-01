@@ -1,6 +1,6 @@
 // admin/src/App.jsx
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import DashboardLayout from "./Components/DashboardLayout";
+import DashboardLayout from "./components/DashboardLayout";
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import Products from "./Pages/Products";
