@@ -1,10 +1,13 @@
 import db from "../Config/db.js";
-const getServices = (req, res)=>{
-   db.query("SELECT * FROM services", (error, results)=>{
-    if (error) {
-      return res.status(500).json({ message: "Internal server error" });
-    }
+
+const getProducts = async (req, res) => {
+  try {
+    const [results] = await db.query("SELECT * FROM products");
     res.json(results);
-   })
-}
-export default getServices;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export default getProducts;
