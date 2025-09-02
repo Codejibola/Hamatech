@@ -14,4 +14,3 @@ async function createAdmin(username,password){
 }
 
 
-createAdmin("Hamatech", "superadmin1")
