@@ -25,7 +25,7 @@ router.post("/add", upload.single("image"), async (req, res) => {
     }
 
     const sql = `
-      INSERT INTO Products (Productname, Productprice, Productimage, ProductDescription)
+      INSERT INTO products (Productname, Productprice, Productimage, ProductDescription)
       VALUES (?, ?, ?, ?)
     `;
     const [result] = await db.execute(sql, [name, price, image, description]);

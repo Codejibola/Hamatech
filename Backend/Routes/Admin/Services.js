@@ -12,7 +12,7 @@ router.post("/services", async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const sql = "INSERT INTO Services (Title, Description) VALUES (?, ?)";
+    const sql = "INSERT INTO services (Title, Description) VALUES (?, ?)";
     const [result] = await db.execute(sql, [title, description]);
 
     res.status(201).json({
