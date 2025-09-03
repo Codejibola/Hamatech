@@ -9,25 +9,36 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-  
-  const res = await fetch("https://hamatech.onrender.com/api/admin/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username: user , password: pwd }),
-  });
+  try {
+    const res = await fetch("https://hamatech.onrender.com/api/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: user, password: pwd }),
+    });
 
-    const data = await res.json();
-    if (res.status === 200) {
-      alert(data.message);
+    // If response is not JSON (like CORS/network error), prevent crash
+    let data = {};
+    try {
+      data = await res.json();
+    } catch {
+      data = { message: "Unexpected server response" };
+    }
+
+    if (res.ok) {
+      alert(data.message || "Login successful ✅");
       navigate("/dashboard");
     } else {
-      alert("Invalid credentials"),
+      alert(data.message || "Invalid credentials ❌");
       setUser("");
       setPwd("");
     }
-  };
+  } catch (err) {
+    console.error("Login request failed:", err);
+    alert("Network error: Could not reach server ⚠️");
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
