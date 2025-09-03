@@ -19,13 +19,11 @@ router.post("/login", (req, res) => {
         }
 
         if (results.length === 0) {
-            // No user found
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
         const user = results[0];
         try {
-            // Compare plain password with hashed password
             const match = await bcrypt.compare(password, user.password);
 
             if (match) {

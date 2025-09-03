@@ -27,10 +27,20 @@ class WebServer {
         this.#port = process.env.PORT || port;
         this.app = express();
 
-        // Middleware must come BEFORE routers
-        this.app.use(cors());
-        this.app.use(express.json()); // <-- important
-        this.app.use(express.urlencoded({ extended: true })); // optional, for form posts
+        // Middleware
+        this.app.use(
+      cors({
+        origin: [
+          "http://localhost:5173",       
+          "https://hamatech.vercel.app" 
+        ],
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+        credentials: true,
+      })
+    );
+        this.app.use(express.json()); 
+        this.app.use(express.urlencoded({ extended: true })); 
         this.app.use("/uploads", express.static(path.join(__dirname, "uploads")));
     }
 
