@@ -12,28 +12,6 @@ const Services = () => {
       .catch((err) => console.error(err));
   }, []);
 
-//   const services = [
-//   { 
-//     title: "Device Sales", 
-//     desc: "Get the latest laptops, smartphones, and accessories at unbeatable prices." 
-//   },
-//   { 
-//     title: "Repairs & Maintenance", 
-//     desc: "Fast and reliable repairs to keep your devices running like new." 
-//   },
-//   { 
-//     title: "Parts & Accessories", 
-//     desc: "High-quality replacement parts and must-have accessories for every device." 
-//   },
-//   { 
-//     title: "Tech Upgrades", 
-//     desc: "Boost your devices with upgrades that give you better speed, storage, and performance." 
-//   },
-//   { 
-//     title: "Student & Business Support", 
-//     desc: "Affordable tech solutions tailored for students, startups, and enterprises." 
-//   }
-// ];
 
   return (
     <div className="min-h-screen bg-white text-black">
