@@ -6,39 +6,42 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
+  const [loading, setLoading] = useState(false); // 👈 loading state
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
+    setLoading(true); // start loading
 
-  try {
-    const res = await fetch("https://hamatech.onrender.com/api/admin/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: user, password: pwd }),
-    });
-
-    // If response is not JSON (like CORS/network error), prevent crash
-    let data = {};
     try {
-      data = await res.json();
-    } catch {
-      data = { message: "Unexpected server response" };
-    }
+      const res = await fetch("https://hamatech.onrender.com/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: user, password: pwd }),
+      });
 
-    if (res.ok) {
-      alert(data.message || "Login successful ✅");
-      navigate("/dashboard");
-    } else {
-      alert(data.message || "Invalid credentials ❌");
-      setUser("");
-      setPwd("");
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {
+        data = { message: "Unexpected server response" };
+      }
+
+      if (res.ok) {
+        alert(data.message || "Login successful ✅");
+        navigate("/dashboard");
+      } else {
+        alert(data.message || "Invalid credentials ❌");
+        setUser("");
+        setPwd("");
+      }
+    } catch (err) {
+      console.error("Login request failed:", err);
+      alert("Network error: Could not reach server ⚠️");
+    } finally {
+      setLoading(false); // stop loading
     }
-  } catch (err) {
-    console.error("Login request failed:", err);
-    alert("Network error: Could not reach server ⚠️");
-  }
-};
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -51,6 +54,7 @@ const Login = () => {
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Admin Login
         </h2>
+
         <form className="space-y-5" onSubmit={handleLogin}>
           <div>
             <label className="block text-gray-600 font-medium mb-1">
@@ -62,6 +66,7 @@ const Login = () => {
               value={user}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
               onChange={(e) => setUser(e.target.value)}
+              disabled={loading} // disable input while loading
             />
           </div>
 
@@ -75,14 +80,16 @@ const Login = () => {
               value={pwd}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
               onChange={(e) => setPwd(e.target.value)}
+              disabled={loading}
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-black text-white py-2 rounded-lg font-semibold hover:bg-gray-800 transition duration-300"
+            className="w-full bg-black text-white py-2 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 disabled:opacity-60"
+            disabled={loading} // disable button while loading
           >
-            Login
+            {loading ? "Connecting to server..." : "Login"}
           </button>
         </form>
 
