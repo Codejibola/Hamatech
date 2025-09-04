@@ -6,33 +6,37 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-  e.preventDefault();
-  try {
-    const res = await fetch("https://hamatech.onrender.com/api/admin/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: user, password: pwd }),
-    });
+    e.preventDefault();
+    setLoading(true); // ✅ start loading
+    try {
+      const res = await fetch("https://hamatech.onrender.com/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: user, password: pwd }),
+      });
 
-    const data = await res.json();
-    console.log("Response:", res.status, data);
+      const data = await res.json();
+      console.log("Response:", res.status, data);
 
-    if (res.status === 200) {
-      alert(data.message);
-      navigate("/dashboard");
-    } else {
-      alert(data.message || "Invalid credentials");
-      setUser("");
-      setPwd("");
+      if (res.status === 200) {
+        alert(data.message);
+        navigate("/dashboard");
+      } else {
+        alert(data.message || "Invalid credentials");
+        setUser("");
+        setPwd("");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Network error. Please try again.");
+    } finally {
+      setLoading(false); // ✅ stop loading
     }
-  } catch (error) {
-    console.error("Login error:", error);
-    alert("Network error. Please try again.");
-  }
-};
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -54,6 +58,7 @@ const Login = () => {
               type="text"
               placeholder="Enter your username"
               value={user}
+              disabled={loading}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
               onChange={(e) => setUser(e.target.value)}
             />
@@ -67,6 +72,7 @@ const Login = () => {
               type="password"
               placeholder="Enter your password"
               value={pwd}
+              disabled={loading}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
               onChange={(e) => setPwd(e.target.value)}
             />
@@ -74,9 +80,14 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-black text-white py-2 rounded-lg font-semibold hover:bg-gray-800 transition duration-300"
+            disabled={loading}
+            className={`w-full py-2 rounded-lg font-semibold transition duration-300 ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-black text-white hover:bg-gray-800"
+            }`}
           >
-            Login
+            {loading ? "Connecting to server..." : "Login"}
           </button>
         </form>
 
