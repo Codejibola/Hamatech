@@ -7,7 +7,7 @@ const Shop = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("https://hamatech.onrender.com/Shop")
+    fetch("http://localhost:3000/shop")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error(err));

@@ -9,7 +9,7 @@ const AddServiceForm = () => {
  const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const res = await fetch("https://hamatech.onrender.com/api/admin/services", {
+    const res = await fetch("http://localhost:3000/api/admin/services", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title, description })
