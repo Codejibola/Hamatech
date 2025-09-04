@@ -6,7 +6,7 @@ import Navbar from "../Components/Navbar.jsx";
 const Services = () => {
     const [services, setServices] = useState([])
    useEffect(() => {
-    fetch("http://localhost:3000/services")
+    fetch("https://hamatech.onrender.com/services")
       .then((res) => res.json())
       .then((data) => setServices(data))
       .catch((err) => console.error(err));

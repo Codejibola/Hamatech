@@ -29,7 +29,7 @@ function Products() {
     data.append("image", formData.image);
 
     try {
-      const res = await fetch("http://localhost:3000/api/admin/add", {
+      const res = await fetch("https://hamatech.onrender.com/api/admin/add", {
         method: "POST",
         body: data, 
       });
